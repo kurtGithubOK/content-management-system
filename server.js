@@ -44,16 +44,16 @@ const UPDATE_EMPLOYEE = 'UPDATE employee SET role_id = ? WHERE id = ?';
 //     if (err) console.log('Error:', err);
 //     else console.log('This is result:', result);
 // });
-// db.query(ADD_EMPLOYEE, function (err, results) {
-//     console.log('ADD_EMPLOYEE:', results);
+// db.query(LIST_EMPLOYEES, function (err, results) {
+//     console.log('LIST_EMPLOYEES:', results);
 // });
 
 // db.query(UPDATE_EMPLOYEE, [1, 5], (err, result) => {
 //     if (err) console.log('Error:', err);
 //     else console.log('This is result:', result);
 // });
-// db.query(UPDATE_EMPLOYEE, function (err, results) {
-//     console.log('UPDATE_EMPLOYEE:', results);
+// db.query(LIST_EMPLOYEES, function (err, results) {
+//     console.log('LIST_EMPLOYEES:', results);
 // });
 
 
