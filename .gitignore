@@ -1,0 +1,6 @@
+
+# git should ignore these files/dirs
+
+node_modules
+package-lock.json
+
