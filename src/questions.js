@@ -11,13 +11,15 @@ const menuOptions = [{
     choices: [VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE]
 }];
 
-// const addDepartmentQuestions = [
-//     {
-//         type: 'input',
-//         name: 'name',
-//         message: 'Enter department name:'
-//     }
-// ];
+const getAddDepartmentQuestions = () => {
+    return [
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Enter department name:'
+        }
+    ]
+};
 
 // const addRoleQuestions = (departmentData) => {
 //     const choices = departmentData.map( (department) => {
@@ -75,6 +77,6 @@ const menuOptions = [{
 
 module.exports = {
     menuOptions: menuOptions,
-    // addDepartmentQuestions: addDepartmentQuestions,
+    getAddDepartmentQuestions: getAddDepartmentQuestions,
     // addRoleQuestions: addRoleQuestions
 }

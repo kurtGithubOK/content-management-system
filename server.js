@@ -8,7 +8,7 @@ const { queryForGetDepartments, queryForGetRoles, queryForGetEmployees, queryFor
 const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE } = require('./src/constants');
 
 // Questions for prompts.
-const { menuOptions } = require('./src/questions');
+const { menuOptions, getAddDepartmentQuestions } = require('./src/questions');
 
 const displayMenuOptions = () => {
     inquirer.prompt(menuOptions)
@@ -24,7 +24,7 @@ const displayMenuOptions = () => {
                     viewAllEmployees();
                     break;
                 case ADD_DEPARTMENT:
-                    // promptDepartment();
+                    addDepartment();
                     break;
                 case ADD_ROLE:
                     // promptRole();
@@ -43,7 +43,7 @@ const displayMenuOptions = () => {
 
 const viewAllDepartments = () => {
     queryForGetDepartments()
-        .then( (allDepartmentsData) => {
+        .then((allDepartmentsData) => {
             console.table(allDepartmentsData[0]);
             displayMenuOptions();
         });
@@ -51,27 +51,27 @@ const viewAllDepartments = () => {
 
 const viewAllRoles = () => {
     queryForGetRoles()
-    .then( (allRolesData) => {
-        console.table(allRolesData[0]);
-        displayMenuOptions();
-    });
+        .then((allRolesData) => {
+            console.table(allRolesData[0]);
+            displayMenuOptions();
+        });
 };
 
 const viewAllEmployees = () => {
     queryForGetEmployees()
-    .then( (allEmployeesData) => {
-        console.table(allEmployeesData[0]);
-        displayMenuOptions();
-    });
+        .then((allEmployeesData) => {
+            console.table(allEmployeesData[0]);
+            displayMenuOptions();
+        });
 };
 
-// const promptDepartment = () => {
-//     inquirer.prompt(addDepartmentQuestions)
-//         .then(({ name }) => {
-//             addDepartment(name)
-//             .then(displayMenuOptions);
-//         });
-// };
+const addDepartment = () => {
+    inquirer.prompt(getAddDepartmentQuestions())
+        .then(({ name: departmentName }) => {
+            queryForInsertDepartment(departmentName)
+                .then(displayMenuOptions);
+        });
+};
 
 // const promptRole = () => {
 //     listDepartments()
