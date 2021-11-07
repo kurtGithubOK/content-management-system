@@ -2,7 +2,7 @@
 const inquirer = require('inquirer');
 
 // Functions for making db queries.
-const { queryForInsertDepartment, queryForGetDepartments, queryForInsertRole, queryForGetRoles, queryForInsertEmployee, queryForGetEmployees, queryForUpdateEmployee } = require('./src/queryFunctions');
+const { queryForGetDepartments, queryForGetRoles, queryForGetEmployees, queryForInsertDepartment, queryForInsertRole, queryForInsertEmployee, queryForUpdateEmployee } = require('./src/queryFunctions');
 
 // Contants for actions.
 const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE } = require('./src/constants');
@@ -10,14 +10,15 @@ const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT
 // Questions for prompts.
 const { menuOptions } = require('./src/questions');
 
+// Functions for formatting data for display in console.
+const { formatDepartmentData } = require('./src/formatters');
+
 const displayMenuOptions = () => {
     inquirer.prompt(menuOptions)
         .then(({ task }) => {
             switch (task) {
                 case VIEW_ALL_DEPARTMENTS:
-            console.log('xxxxxxxxxxxx!', VIEW_ALL_DEPARTMENTS)
-
-                    // listDepartments();
+                    viewAllDepartments();
                     break;
                 case VIEW_ALL_ROLES:
                     // listRoles();
@@ -40,6 +41,15 @@ const displayMenuOptions = () => {
                 default:
                     break;
             }
+        });
+};
+
+const viewAllDepartments = () => {
+    queryForGetDepartments()
+        .then(( allDepartmentsData) => {
+            // console.log('hereeeeeeeeeeeee', allDepartmentsData[0])
+            formatDepartmentData(allDepartmentsData[0]);
+            displayMenuOptions();
         });
 };
 
