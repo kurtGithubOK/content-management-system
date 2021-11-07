@@ -10,9 +10,6 @@ const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT
 // Questions for prompts.
 const { menuOptions } = require('./src/questions');
 
-// Functions for formatting data for display in console.
-const { formatDepartmentData } = require('./src/formatters');
-
 const displayMenuOptions = () => {
     inquirer.prompt(menuOptions)
         .then(({ task }) => {
@@ -21,10 +18,10 @@ const displayMenuOptions = () => {
                     viewAllDepartments();
                     break;
                 case VIEW_ALL_ROLES:
-                    // listRoles();
+                    viewAllRoles();
                     break;
                 case VIEW_ALL_EMPLOYEES:
-                    // listEmployees();
+                    viewAllEmployees();
                     break;
                 case ADD_DEPARTMENT:
                     // promptDepartment();
@@ -46,11 +43,26 @@ const displayMenuOptions = () => {
 
 const viewAllDepartments = () => {
     queryForGetDepartments()
-        .then(( allDepartmentsData) => {
-            // console.log('hereeeeeeeeeeeee', allDepartmentsData[0])
-            formatDepartmentData(allDepartmentsData[0]);
+        .then( (allDepartmentsData) => {
+            console.table(allDepartmentsData[0]);
             displayMenuOptions();
         });
+};
+
+const viewAllRoles = () => {
+    queryForGetRoles()
+    .then( (allRolesData) => {
+        console.table(allRolesData[0]);
+        displayMenuOptions();
+    });
+};
+
+const viewAllEmployees = () => {
+    queryForGetEmployees()
+    .then( (allEmployeesData) => {
+        console.table(allEmployeesData[0]);
+        displayMenuOptions();
+    });
 };
 
 // const promptDepartment = () => {
@@ -85,7 +97,5 @@ const viewAllDepartments = () => {
 // };
 
 displayMenuOptions();
-
-
 
 

@@ -12,21 +12,23 @@ const ADD_EMPLOYEE_SQL = 'INSERT INTO employee (first_name, last_name, role_id, 
 const UPDATE_EMPLOYEE_SQL = 'UPDATE employee SET role_id = ? WHERE id = ?';
 
 
+const queryForGetDepartments = () => {
+    return db.promise().query(LIST_DEPARTMENTS_SQL);
+};
+
+const queryForGetRoles = () => {
+    return db.promise().query(LIST_ROLES_SQL);
+};
+
+const queryForGetEmployees = () => {
+    return db.promise().query(LIST_EMPLOYEES_SQL);
+};
+
 const queryForInsertDepartment = (name) => {
     return db.promise().query(ADD_DEPARTMENT_SQL, [name], (err, result) => {
         if (err) console.log(`Error occurred when adding department ${name}:`, err);
         else console.log(`Successfully added department ${name}:`, result);
     });
-};
-
-const queryForGetDepartments = () => {
-    return db.promise().query(LIST_DEPARTMENTS_SQL
-        // , function (err, results) {
-        // if(err) console.log('Error when listing depts', err);
-        // console.log('LIST_DEPARTMENTS results:', results);
-        // // return results;
-    // }
-    );
 };
 
 const queryForInsertRole = (role, salary, departmentId) => {
@@ -36,22 +38,10 @@ const queryForInsertRole = (role, salary, departmentId) => {
     });
 };
 
-const queryForGetRoles = () => {
-    db.query(LIST_ROLES_SQL, function (err, results) {
-        console.log('LIST_ROLES results:', results);
-    });
-};
-
 const queryForInsertEmployee = (firstName, lastName, roleId, managerId) => {
     db.query(ADD_EMPLOYEE_SQL, [firstName, lastName, roleId, managerId], (err, result) => {
         if (err) console.log(`Error occurred when adding employee ${lastName}:`, err);
         else console.log(`Successfully added employee ${lastName}:`, result);
-    });
-};
-
-const queryForGetEmployees = () => {
-    db.query(LIST_EMPLOYEES_SQL, function (err, results) {
-        console.log('LIST_EMPLOYEES:', results);
     });
 };
 
