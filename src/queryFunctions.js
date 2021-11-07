@@ -12,14 +12,14 @@ const ADD_EMPLOYEE_SQL = 'INSERT INTO employee (first_name, last_name, role_id, 
 const UPDATE_EMPLOYEE_SQL = 'UPDATE employee SET role_id = ? WHERE id = ?';
 
 
-const addDepartment = (name) => {
+const queryForInsertDepartment = (name) => {
     return db.promise().query(ADD_DEPARTMENT_SQL, [name], (err, result) => {
         if (err) console.log(`Error occurred when adding department ${name}:`, err);
         else console.log(`Successfully added department ${name}:`, result);
     });
 };
 
-const listDepartments = () => {
+const queryForGetDepartments = () => {
     return db.promise().query(LIST_DEPARTMENTS_SQL
         // , function (err, results) {
         // if(err) console.log('Error when listing depts', err);
@@ -29,33 +29,33 @@ const listDepartments = () => {
     );
 };
 
-const addRole = (role, salary, departmentId) => {
+const queryForInsertRole = (role, salary, departmentId) => {
     return db.promise().query(ADD_ROLE_SQL, [role, salary, departmentId], (err, result) => {
         if (err) console.log(`Error occurred when adding role ${role}:`, err);
         else console.log(`Successfully added role ${role}:`, result);
     });
 };
 
-const listRoles = () => {
+const queryForGetRoles = () => {
     db.query(LIST_ROLES_SQL, function (err, results) {
         console.log('LIST_ROLES results:', results);
     });
 };
 
-const addEmployee = (firstName, lastName, roleId, managerId) => {
+const queryForInsertEmployee = (firstName, lastName, roleId, managerId) => {
     db.query(ADD_EMPLOYEE_SQL, [firstName, lastName, roleId, managerId], (err, result) => {
         if (err) console.log(`Error occurred when adding employee ${lastName}:`, err);
         else console.log(`Successfully added employee ${lastName}:`, result);
     });
 };
 
-const listEmployees = () => {
+const queryForGetEmployees = () => {
     db.query(LIST_EMPLOYEES_SQL, function (err, results) {
         console.log('LIST_EMPLOYEES:', results);
     });
 };
 
-const updateEmployee = (roleId, employeeId) => {
+const queryForUpdateEmployee = (roleId, employeeId) => {
     db.query(UPDATE_EMPLOYEE_SQL, [roleId, employeeId], (err, result) => {
         if (err) console.log(`Error occurred when updating employeeId ${employeeId}:`, err);
         else console.log(`Successfully updated employeeId ${employeeId}:`, result);
@@ -63,13 +63,13 @@ const updateEmployee = (roleId, employeeId) => {
 };
 
 module.exports = {
-    addDepartment,
-    listDepartments,
-    addRole,
-    listRoles,
-    addEmployee,
-    listEmployees,
-    updateEmployee
+    queryForInsertDepartment: queryForInsertDepartment,
+    queryForGetDepartments: queryForGetDepartments,
+    queryForInsertRole: queryForInsertRole,
+    queryForGetRoles: queryForGetRoles,
+    queryForInsertEmployee: queryForInsertEmployee,
+    queryForGetEmployees: queryForGetEmployees,
+    queryForUpdateEmployee: queryForUpdateEmployee
 };
 
 
