@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 // Functions for making db queries.
 const { queryForGetDepartments, queryForGetRoles, queryForGetEmployees, queryForInsertDepartment, queryForInsertRole, queryForInsertEmployee, queryForUpdateEmployee } = require('./src/queryFunctions');
 
-// Contants for actions.
+// Constants for actions.
 const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE } = require('./src/constants');
 
 // Questions for prompts.
@@ -66,8 +66,9 @@ const viewAllEmployees = () => {
 };
 
 const addDepartment = () => {
-    inquirer.prompt(getAddDepartmentQuestions())
-        .then(({ name: departmentName }) => {
+    const addDepartmentQuestions = getAddDepartmentQuestions();
+    inquirer.prompt(addDepartmentQuestions)
+    .then( ( {departmentName} ) => {
             queryForInsertDepartment(departmentName)
                 .then(displayMenuOptions);
         });

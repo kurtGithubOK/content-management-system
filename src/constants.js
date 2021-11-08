@@ -3,7 +3,7 @@ const VIEW_ALL_DEPARTMENTS = 'View All Departments';
 const VIEW_ALL_ROLES = 'View All Roles';
 const VIEW_ALL_EMPLOYEES = 'View All Employees';
 const ADD_DEPARTMENT = 'Add Department';
-const ADD_ROLE = 'Add Roles';
+const ADD_ROLE = 'Add Role';
 const ADD_EMPLOYEE = 'Add Employee';
 const UPDATE_EMPLOYEE = 'Update Employee';
 

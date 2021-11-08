@@ -15,7 +15,7 @@ const getAddDepartmentQuestions = () => {
     return [
         {
             type: 'input',
-            name: 'name',
+            name: 'departmentName',
             message: 'Enter department name:'
         }
     ]
