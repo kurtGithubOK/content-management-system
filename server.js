@@ -8,7 +8,7 @@ const { queryForGetDepartments, queryForGetRoles, queryForGetEmployees, queryFor
 const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE } = require('./src/constants');
 
 // Questions for prompts.
-const { menuOptions, getAddDepartmentQuestions, addRoleQuestions } = require('./src/questions');
+const { menuOptions, getAddDepartmentQuestions, addRoleQuestions, addEmployeeQuestions } = require('./src/questions');
 
 const displayMenuOptions = () => {
     inquirer.prompt(menuOptions)
@@ -30,7 +30,7 @@ const displayMenuOptions = () => {
                     addRole();
                     break;
                 case ADD_EMPLOYEE:
-                    // addEmployee();
+                    addEmployee();
                     break;
                 case UPDATE_EMPLOYEE:
                     // updateEmployee();
@@ -95,8 +95,25 @@ const addRole = () => {
         });
 };
 
-// const promptEmployee = () => {
-// };
+// Display questions for adding an employee by getting a list of all roles,
+// then a list of all managers, then generating prompts for adding an
+// employee based on those values for roles and managers.
+const addEmployee = () => {
+    // Get all role data.
+    queryForGetRoles()
+    .then( (allRoleData) => {
+        // Get all employee data.
+        queryForGetEmployees()
+        .then( (allEmployeeData) => {
+            // Now pass role and employee data to function that generates questions for adding an employee.
+            const employeeQuestions = addEmployeeQuestions(allRoleData, allEmployeeData)
+            console.log('aaaaaaaaaa', employeeQuestions)
+
+
+        })
+
+    })
+};
 
 displayMenuOptions();
 

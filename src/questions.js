@@ -11,6 +11,7 @@ const menuOptions = [{
     choices: [VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE]
 }];
 
+// Questions for adding a department.
 const getAddDepartmentQuestions = () => {
     return [
         {
@@ -21,6 +22,7 @@ const getAddDepartmentQuestions = () => {
     ]
 };
 
+// Questions for adding a role.
 const addRoleQuestions = (allDepartmentData) => {
     const departmentNames = allDepartmentData.map((departmentData) => {
         return departmentData.name;
@@ -46,36 +48,42 @@ const addRoleQuestions = (allDepartmentData) => {
     ];
 }
 
+// Questions for adding an employee.
+const addEmployeeQuestions = (allRoleData, allEmployeeData) => {
+    const roleNames = '';
+    const managerNames = '';
 
-// const addEmployeeQuestions = [
-//         {
-//             type: 'input',
-//             name: 'firstName',
-//             message: 'Enter employee first name:'
-//         },
-//         {
-//             type: 'input',
-//             name: 'lastName',
-//             message: 'Enter employee last name:'
-//         },
-//         {
-//             type: 'input',
-//             name: 'role',
-//             message: 'Select employee role:',
-//             choices: ['aaa', 'bbb']
-//         },
-//         {
-//             type: 'input',
-//             name: 'manager',
-//             message: 'Select employee manager:',
-//             choices: ['ddddd', 'cccc']
-//         }        
-// ];
+    return [
+        {
+            type: 'input',
+            name: 'firstName',
+            message: 'Enter employee first name:'
+        },
+        {
+            type: 'input',
+            name: 'lastName',
+            message: 'Enter employee last name:'
+        },
+        {
+            type: 'input',
+            name: 'role',
+            message: 'Select employee role:',
+            choices: roleNames
+        },
+        {
+            type: 'input',
+            name: 'manager',
+            message: 'Select employee manager:',
+            choices: managerNames
+        }
+    ];
+};
 
 
 
 module.exports = {
     menuOptions: menuOptions,
     getAddDepartmentQuestions: getAddDepartmentQuestions,
-    addRoleQuestions: addRoleQuestions
+    addRoleQuestions: addRoleQuestions,
+    addEmployeeQuestions: addEmployeeQuestions
 }
