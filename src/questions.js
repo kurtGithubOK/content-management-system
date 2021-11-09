@@ -21,31 +21,30 @@ const getAddDepartmentQuestions = () => {
     ]
 };
 
-// const addRoleQuestions = (departmentData) => {
-//     const choices = departmentData.map( (department) => {
-//         return department.name;
-//     });
-// console.log('tttttttttttttttt', choices)
+const addRoleQuestions = (allDepartmentData) => {
+    const departmentNames = allDepartmentData.map((departmentData) => {
+        return departmentData.name;
+    });
 
-//     return [
-//         {
-//             type: 'input',
-//             name: 'name',
-//             message: 'Enter role name:'
-//         },
-//         {
-//             type: 'input',
-//             name: 'salary',
-//             message: 'Enter role salary:'
-//         },
-//         {
-//             type: 'input',
-//             name: 'department',
-//             message: 'Select department for role:',
-//             choices: choices
-//         },
-//     ];
-// } 
+    return [
+        {
+            type: 'input',
+            name: 'roleName',
+            message: 'Enter role name:'
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'Enter role salary:'
+        },
+        {
+            type: 'list',
+            name: 'departmentName',
+            message: 'Select department for role:',
+            choices: departmentNames
+        },
+    ];
+}
 
 
 // const addEmployeeQuestions = [
@@ -78,5 +77,5 @@ const getAddDepartmentQuestions = () => {
 module.exports = {
     menuOptions: menuOptions,
     getAddDepartmentQuestions: getAddDepartmentQuestions,
-    // addRoleQuestions: addRoleQuestions
+    addRoleQuestions: addRoleQuestions
 }

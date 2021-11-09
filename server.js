@@ -8,7 +8,7 @@ const { queryForGetDepartments, queryForGetRoles, queryForGetEmployees, queryFor
 const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE } = require('./src/constants');
 
 // Questions for prompts.
-const { menuOptions, getAddDepartmentQuestions } = require('./src/questions');
+const { menuOptions, getAddDepartmentQuestions, addRoleQuestions } = require('./src/questions');
 
 const displayMenuOptions = () => {
     inquirer.prompt(menuOptions)
@@ -27,7 +27,7 @@ const displayMenuOptions = () => {
                     addDepartment();
                     break;
                 case ADD_ROLE:
-                    // promptRole();
+                    addRole();
                     break;
                 case ADD_EMPLOYEE:
                     // addEmployee();
@@ -41,6 +41,7 @@ const displayMenuOptions = () => {
         });
 };
 
+// Query for departments, display them, then display menu options.
 const viewAllDepartments = () => {
     queryForGetDepartments()
         .then((allDepartmentsData) => {
@@ -49,6 +50,7 @@ const viewAllDepartments = () => {
         });
 };
 
+// Query for roles, display them, then display menu options.
 const viewAllRoles = () => {
     queryForGetRoles()
         .then((allRolesData) => {
@@ -57,6 +59,7 @@ const viewAllRoles = () => {
         });
 };
 
+// Query for employees, display them, then display menu options.
 const viewAllEmployees = () => {
     queryForGetEmployees()
         .then((allEmployeesData) => {
@@ -65,34 +68,32 @@ const viewAllEmployees = () => {
         });
 };
 
+// Display questions for adding a department, use answer as parameter for adding department.
 const addDepartment = () => {
     const addDepartmentQuestions = getAddDepartmentQuestions();
     inquirer.prompt(addDepartmentQuestions)
-    .then( ( {departmentName} ) => {
+        .then(({ departmentName }) => {
             queryForInsertDepartment(departmentName)
                 .then(displayMenuOptions);
         });
 };
 
-// const promptRole = () => {
-//     listDepartments()
-//     .then( (deptData) => {
-//         const roleQuestions = addRoleQuestions(deptData)
-
-//         inquirer.prompt(roleQuestions)
-//         .then( ( { name, salary, departmentName } ) => {
-//             const department = deptData.find((department) => {
-//                 return department.name = departmentName;
-//             });
-
-//             addRole(name, salary, department.id)
-//             .then(displayMenuOptions);
-//         });
-//     })
-//     .catch( (error) => {
-//         console.log('xxxxxxxxxxxxxxxxxxxx', error)
-//     });
-// };
+// Display questions for adding a role by first getting list of department names and using them
+// as choices in questions.  Take user's response as parameter for adding a role.
+const addRole = () => {
+    queryForGetDepartments()
+        .then((allDepartmentData) => {
+            const roleQuestions = addRoleQuestions(allDepartmentData[0])
+            inquirer.prompt(roleQuestions)
+                .then( ({ roleName, salary, departmentName }) => {
+                    const department = allDepartmentData[0].find((department) => {
+                        return department.name === departmentName;
+                    });
+                    queryForInsertRole(roleName, salary, department.id)
+                        .then(displayMenuOptions);
+                });
+        });
+};
 
 // const promptEmployee = () => {
 // };
