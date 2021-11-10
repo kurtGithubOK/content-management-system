@@ -119,12 +119,8 @@ const addEmployee = () => {
 
                             queryForInsertEmployee(firstName, lastName, role.id, employee.id)
                                 .then(displayMenuOptions);
-
-
                         });
-
                 })
-
         })
 };
 
