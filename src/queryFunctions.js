@@ -39,7 +39,7 @@ const queryForInsertRole = (role, salary, departmentId) => {
 };
 
 const queryForInsertEmployee = (firstName, lastName, roleId, managerId) => {
-    db.query(ADD_EMPLOYEE_SQL, [firstName, lastName, roleId, managerId], (err, result) => {
+    return db.promise().query(ADD_EMPLOYEE_SQL, [firstName, lastName, roleId, managerId], (err, result) => {
         if (err) console.log(`Error occurred when adding employee ${lastName}:`, err);
         else console.log(`Successfully added employee ${lastName}:`, result);
     });

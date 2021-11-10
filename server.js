@@ -85,7 +85,7 @@ const addRole = () => {
         .then((allDepartmentData) => {
             const roleQuestions = addRoleQuestions(allDepartmentData[0])
             inquirer.prompt(roleQuestions)
-                .then( ({ roleName, salary, departmentName }) => {
+                .then(({ roleName, salary, departmentName }) => {
                     const department = allDepartmentData[0].find((department) => {
                         return department.name === departmentName;
                     });
@@ -101,18 +101,31 @@ const addRole = () => {
 const addEmployee = () => {
     // Get all role data.
     queryForGetRoles()
-    .then( (allRoleData) => {
-        // Get all employee data.
-        queryForGetEmployees()
-        .then( (allEmployeeData) => {
-            // Now pass role and employee data to function that generates questions for adding an employee.
-            const employeeQuestions = addEmployeeQuestions(allRoleData, allEmployeeData)
-            console.log('aaaaaaaaaa', employeeQuestions)
+        .then((allRoleData) => {
+            // Get all employee data.
+            queryForGetEmployees()
+                .then((allEmployeeData) => {
+                    // Now pass role and employee data to function that generates questions for adding an employee.
+                    const employeeQuestions = addEmployeeQuestions(allRoleData[0], allEmployeeData[0])
+                    inquirer.prompt(employeeQuestions)
+                        .then(({ firstName, lastName, roleName, manager }) => {
+                            const role = allRoleData[0].find((roleData) => {
+                                return roleData.title === roleName;
+                            });
 
+                            const employee = allEmployeeData[0].find((employeeData) => {
+                                return employeeData.first_name + ' ' + employeeData.last_name === manager;
+                            });
+
+                            queryForInsertEmployee(firstName, lastName, role.id, employee.id)
+                                .then(displayMenuOptions);
+
+
+                        });
+
+                })
 
         })
-
-    })
 };
 
 displayMenuOptions();

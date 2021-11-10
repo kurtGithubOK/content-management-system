@@ -50,8 +50,13 @@ const addRoleQuestions = (allDepartmentData) => {
 
 // Questions for adding an employee.
 const addEmployeeQuestions = (allRoleData, allEmployeeData) => {
-    const roleNames = '';
-    const managerNames = '';
+    const roleNames = allRoleData.map( (roleData) => {
+        return roleData.title;
+    });
+
+    const managerNames = allEmployeeData.map( (employeeData) => {
+        return employeeData.first_name + ' ' + employeeData.last_name;
+    });
 
     return [
         {
@@ -65,13 +70,13 @@ const addEmployeeQuestions = (allRoleData, allEmployeeData) => {
             message: 'Enter employee last name:'
         },
         {
-            type: 'input',
-            name: 'role',
+            type: 'list',
+            name: 'roleName',
             message: 'Select employee role:',
             choices: roleNames
         },
         {
-            type: 'input',
+            type: 'list',
             name: 'manager',
             message: 'Select employee manager:',
             choices: managerNames
