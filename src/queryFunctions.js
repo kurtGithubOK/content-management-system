@@ -3,7 +3,25 @@ const { db } = require('./dbconn')
 // Constants for queries.
 const LIST_DEPARTMENTS_SQL = 'SELECT * FROM department';
 const LIST_ROLES_SQL = 'SELECT * FROM role';
-const LIST_EMPLOYEES_SQL = 'SELECT * FROM employee';
+const LIST_EMPLOYEES_SQL = `
+    SELECT
+        employee.id, 
+        employee.first_name,
+        employee.last_name,
+        role.title, 
+        department.name AS department,
+        role.salary,
+        concat(manager.first_name, ' ', manager.last_name) as manager
+    FROM 
+        employee
+    INNER JOIN role ON 
+        employee.role_id = role.id
+    INNER JOIN department ON 
+        role.department_id = department.id
+    LEFT JOIN employee AS manager ON
+        manager.id = employee.manager_id
+    ORDER BY employee.id ASC;
+`;
 
 const ADD_DEPARTMENT_SQL = 'INSERT INTO department (name) VALUES (?)';
 const ADD_ROLE_SQL = 'INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)';
