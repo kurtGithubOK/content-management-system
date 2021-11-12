@@ -4,13 +4,23 @@
 -- 2 employees (kurt & Mr. Manager)
 
 INSERT INTO department (name)
-VALUES ("kurt's deparment");
+VALUES ("Sales", "Engineering", "Finance");
 
 INSERT INTO role (title, salary, department_id)
-VALUES ("employee role", "10000", 1),
-("manager role", "50000", 1);
+VALUES 
+    ("Sales Lead", 100000, 1),
+    ("SalesPerson", 80000, 1),
+    ("Lead Engineer", 150000, 2),
+    ("Software Engineer", 120000, 2),
+    ("Account Manager", 160000, 3),
+    ("Accountant", 125000, 3);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("mr.", "manager", 2, null);
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("kurt", "heimerman", 1, 1);
+VALUES 
+    ("John", "Doe", 1, null),
+    ("Mike", "Chan", 2, 1),
+    ("Ashley", "Rodriguez", 3, null),
+    ("Kevin", "Tupik", 4, 3),
+    ("Kunal", "Singh", 5, 3),
+    ("Malia", "Brown", 6, 5);
+
