@@ -50,11 +50,11 @@ const addRoleQuestions = (allDepartmentData) => {
 
 // Questions for adding an employee.
 const addEmployeeQuestions = (allRoleData, allEmployeeData) => {
-    const roleNames = allRoleData.map( (roleData) => {
+    const roleNames = allRoleData.map((roleData) => {
         return roleData.title;
     });
 
-    const managerNames = allEmployeeData.map( (employeeData) => {
+    const managerNames = allEmployeeData.map((employeeData) => {
         return employeeData.first_name + ' ' + employeeData.last_name;
     });
 
@@ -84,11 +84,35 @@ const addEmployeeQuestions = (allRoleData, allEmployeeData) => {
     ];
 };
 
+const updateEmployeeQuestions = (allEmployeeData, allRoleData) => {
+    const employeeNames = allEmployeeData.map( (employee) => {
+        return employee.first_name + ' ' + employee.last_name;
+    });
 
+    const roleNames = allRoleData.map( (role) => {
+        return role.title;
+    })
+
+    return [
+        {
+            type: 'list',
+            name: 'employeeName',
+            message: 'Select employee to update:',
+            choices: employeeNames
+        },
+        {
+            type: 'list',
+            name: 'roleName',
+            message: 'Select role to update employee to:',
+            choices: roleNames
+        }
+    ];
+};
 
 module.exports = {
     menuOptions: menuOptions,
     getAddDepartmentQuestions: getAddDepartmentQuestions,
     addRoleQuestions: addRoleQuestions,
-    addEmployeeQuestions: addEmployeeQuestions
+    addEmployeeQuestions: addEmployeeQuestions,
+    updateEmployeeQuestions: updateEmployeeQuestions
 }

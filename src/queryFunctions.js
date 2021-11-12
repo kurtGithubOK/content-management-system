@@ -46,7 +46,7 @@ const queryForInsertEmployee = (firstName, lastName, roleId, managerId) => {
 };
 
 const queryForUpdateEmployee = (roleId, employeeId) => {
-    db.query(UPDATE_EMPLOYEE_SQL, [roleId, employeeId], (err, result) => {
+    return db.promise().query(UPDATE_EMPLOYEE_SQL, [roleId, employeeId], (err, result) => {
         if (err) console.log(`Error occurred when updating employeeId ${employeeId}:`, err);
         else console.log(`Successfully updated employeeId ${employeeId}:`, result);
     });

@@ -2,13 +2,35 @@
 const inquirer = require('inquirer');
 
 // Functions for making db queries.
-const { queryForGetDepartments, queryForGetRoles, queryForGetEmployees, queryForInsertDepartment, queryForInsertRole, queryForInsertEmployee, queryForUpdateEmployee } = require('./src/queryFunctions');
+const {
+    queryForGetDepartments,
+    queryForGetRoles,
+    queryForGetEmployees,
+    queryForInsertDepartment,
+    queryForInsertRole,
+    queryForInsertEmployee,
+    queryForUpdateEmployee
+} = require('./src/queryFunctions');
 
 // Constants for actions.
-const { VIEW_ALL_DEPARTMENTS, VIEW_ALL_ROLES, VIEW_ALL_EMPLOYEES, ADD_DEPARTMENT, ADD_ROLE, ADD_EMPLOYEE, UPDATE_EMPLOYEE } = require('./src/constants');
+const {
+    VIEW_ALL_DEPARTMENTS,
+    VIEW_ALL_ROLES,
+    VIEW_ALL_EMPLOYEES,
+    ADD_DEPARTMENT,
+    ADD_ROLE,
+    ADD_EMPLOYEE,
+    UPDATE_EMPLOYEE
+} = require('./src/constants');
 
 // Questions for prompts.
-const { menuOptions, getAddDepartmentQuestions, addRoleQuestions, addEmployeeQuestions } = require('./src/questions');
+const {
+    menuOptions,
+    getAddDepartmentQuestions,
+    addRoleQuestions,
+    addEmployeeQuestions,
+    updateEmployeeQuestions
+} = require('./src/questions');
 
 const displayMenuOptions = () => {
     inquirer.prompt(menuOptions)
@@ -33,7 +55,7 @@ const displayMenuOptions = () => {
                     addEmployee();
                     break;
                 case UPDATE_EMPLOYEE:
-                    // updateEmployee();
+                    updateEmployee();
                     break;
                 default:
                     break;
@@ -120,6 +142,31 @@ const addEmployee = () => {
                             queryForInsertEmployee(firstName, lastName, role.id, employee.id)
                                 .then(displayMenuOptions);
                         });
+                })
+        })
+};
+
+// Updates an emploees role by displaying list of employees to choose from,
+// then displaying a list of roles to to which the employee is updated.
+const updateEmployee = () => {
+    queryForGetEmployees()
+        .then((allEmployeeData) => {
+            queryForGetRoles()
+                .then((allRoleData) => {
+                    const myUpdateEmployeeQuestions = updateEmployeeQuestions(allEmployeeData[0], allRoleData[0])
+                    inquirer.prompt(myUpdateEmployeeQuestions)
+                        .then(({ employeeName, roleName }) => {
+                            const chosenRole = allRoleData[0].find((role) => {
+                                return role.title === roleName;
+                            });
+
+                            const chosenEmployee = allEmployeeData[0].find((employee) => {
+                                return employee.first_name + ' ' + employee.last_name === employeeName
+                            });
+
+                            queryForUpdateEmployee(chosenRole.id, chosenEmployee.id)
+                                .then(displayMenuOptions);
+                        })
                 })
         })
 };
