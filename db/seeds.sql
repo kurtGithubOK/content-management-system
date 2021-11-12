@@ -4,7 +4,10 @@
 -- 2 employees (kurt & Mr. Manager)
 
 INSERT INTO department (name)
-VALUES ("Sales", "Engineering", "Finance");
+VALUES 
+    ("Sales"),
+    ("Engineering"),
+    ("Finance");
 
 INSERT INTO role (title, salary, department_id)
 VALUES 
@@ -21,6 +24,6 @@ VALUES
     ("Mike", "Chan", 2, 1),
     ("Ashley", "Rodriguez", 3, null),
     ("Kevin", "Tupik", 4, 3),
-    ("Kunal", "Singh", 5, 3),
+    ("Kunal", "Singh", 5, null),
     ("Malia", "Brown", 6, 5);
 
