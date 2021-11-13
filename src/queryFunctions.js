@@ -2,7 +2,12 @@ const { db } = require('./dbconn')
 
 // Constants for queries.
 const LIST_DEPARTMENTS_SQL = 'SELECT * FROM department';
-const LIST_ROLES_SQL = 'SELECT * FROM role';
+const LIST_ROLES_SQL = `
+    SELECT role.id, title, salary, department.name
+    FROM role
+    INNER JOIN department ON
+    role.department_id = department.id;
+`;
 const LIST_EMPLOYEES_SQL = `
     SELECT
         employee.id, 

@@ -96,7 +96,10 @@ const addDepartment = () => {
     inquirer.prompt(addDepartmentQuestions)
         .then(({ departmentName }) => {
             queryForInsertDepartment(departmentName)
-                .then(displayMenuOptions);
+                .then( () => {
+                    console.log('Added', departmentName, 'to the database.')
+                    displayMenuOptions();
+                });
         });
 };
 
@@ -112,7 +115,10 @@ const addRole = () => {
                         return department.name === departmentName;
                     });
                     queryForInsertRole(roleName, salary, department.id)
-                        .then(displayMenuOptions);
+                        .then( () => {
+                            console.log('Added', roleName, 'to the database');
+                            displayMenuOptions();
+                        });
                 });
         });
 };
@@ -140,7 +146,10 @@ const addEmployee = () => {
                             });
 
                             queryForInsertEmployee(firstName, lastName, role.id, employee.id)
-                                .then(displayMenuOptions);
+                                .then( () => {
+                                    console.log('Added', firstName, lastName, 'to the database.')
+                                    displayMenuOptions();
+                                });
                         });
                 })
         })
@@ -165,7 +174,10 @@ const updateEmployee = () => {
                             });
 
                             queryForUpdateEmployee(chosenRole.id, chosenEmployee.id)
-                                .then(displayMenuOptions);
+                                .then( () => {
+                                    console.log('Updated employee\'s role')
+                                    displayMenuOptions();
+                                });
                         })
                 })
         })
