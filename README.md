@@ -1,6 +1,6 @@
 # Title: content-management-system
 
-# Link to video:  put link here.
+# Link to video:  https://watch.screencastify.com/v/wrUe7fitoI5H4hDLOf4c
 
 # Description: A CLI for managing an emploee database.
 
